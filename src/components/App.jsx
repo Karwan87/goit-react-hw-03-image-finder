@@ -57,23 +57,29 @@ class App extends Component {
     });
   };
 
-  // handleItemClick = (imageUrl, index) => {
-  //   this.setState({ isModalOpen: true, selectedImageIndex: index });
-  // };
+  handlePrevImage = () => {
+    const { images, selectedImageUrl } = this.state;
+    const selectedIndex = images.findIndex(
+      image => image.webformatURL === selectedImageUrl
+    );
+    if (selectedIndex > 0) {
+      this.setState({
+        selectedImageUrl: images[selectedIndex - 1].webformatURL,
+      });
+    }
+  };
 
-  // handlePrevImage = () => {
-  //   const { selectedImageIndex, images } = this.state;
-  //   if (selectedImageIndex > 0) {
-  //     this.setState({ selectedImageIndex: selectedImageIndex - 1 });
-  //   }
-  // };
-
-  // handleNextImage = () => {
-  //   const { selectedImageIndex, images } = this.state;
-  //   if (selectedImageIndex < images.length - 1) {
-  //     this.setState({ selectedImageIndex: selectedImageIndex + 1 });
-  //   }
-  // };
+  handleNextImage = () => {
+    const { images, selectedImageUrl } = this.state;
+    const selectedIndex = images.findIndex(
+      image => image.webformatURL === selectedImageUrl
+    );
+    if (selectedIndex < images.length - 1) {
+      this.setState({
+        selectedImageUrl: images[selectedIndex + 1].webformatURL,
+      });
+    }
+  };
 
   render() {
     const { images, isLoading, selectedImageUrl, isModalOpen } = this.state;
@@ -90,6 +96,8 @@ class App extends Component {
           <Modal
             imageUrl={selectedImageUrl}
             onClose={() => this.setState({ isModalOpen: false })}
+            onPrev={this.handlePrevImage} // Przekazanie funkcji onPrev
+            onNext={this.handleNextImage} // Przekazanie funkcji onNext
           />
         )}
       </div>

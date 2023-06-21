@@ -21,6 +21,16 @@ const Modal = ({ imageUrl, onClose, onPrev, onNext }) => {
     };
   }, [onClose, onPrev, onNext]);
 
+  const handlePrevClick = event => {
+    event.stopPropagation();
+    onPrev();
+  };
+
+  const handleNextClick = event => {
+    event.stopPropagation();
+    onNext();
+  };
+
   const handleClick = event => {
     if (event.target === event.currentTarget) {
       onClose();
@@ -35,10 +45,10 @@ const Modal = ({ imageUrl, onClose, onPrev, onNext }) => {
         </button>
         <img src={imageUrl} alt="" className={styles.image} />
         <div className={styles.navigator}>
-          <button className={styles.prevButton} onClick={onPrev}>
+          <button className={styles.prevButton} onClick={handlePrevClick}>
             <BiChevronLeft size={30} />
           </button>
-          <button className={styles.nextButton} onClick={onNext}>
+          <button className={styles.nextButton} onClick={handleNextClick}>
             <BiChevronRight size={30} />
           </button>
         </div>

@@ -69,3 +69,8 @@
   background: rgba(221, 225, 245, 0.836);
   transition-duration: 350ms;
 }
+.image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
