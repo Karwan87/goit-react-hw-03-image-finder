@@ -11,10 +11,11 @@ class App extends Component {
     images: [],
     isLoading: false,
     currentPage: 1,
-    selectedImageUrl: '', // Dodaj stan dla wybranego URL obrazka
-    isModalOpen: false, // Dodaj stan dla określenia czy modal jest otwarty
+    selectedImageUrl: null,
+    isModalOpen: false,
+    selectedIndex: [],
   };
-  API_KEY = '35038868-0cefdd0904fdf8a70a3b6f6a2'; // Dodaj tutaj swój klucz API
+  API_KEY = '35038868-0cefdd0904fdf8a70a3b6f6a2';
 
   handleSearchSubmit = async searchQuery => {
     try {
@@ -50,10 +51,12 @@ class App extends Component {
     }
   };
 
-  handleItemClick = imageUrl => {
+  handleItemClick = (imageUrl, index) => {
     this.setState({
-      selectedImageUrl: imageUrl, // Ustawienie wybranego URL obrazka w stanie
-      isModalOpen: true, // Otwarcie modala
+      selectedImageUrl: imageUrl,
+      selectedIndex: index,
+      isModalOpen: true,
+      selectedImageIndex: index,
     });
   };
 
@@ -63,9 +66,8 @@ class App extends Component {
       image => image.webformatURL === selectedImageUrl
     );
     if (selectedIndex > 0) {
-      this.setState({
-        selectedImageUrl: images[selectedIndex - 1].webformatURL,
-      });
+      const prevImageUrl = images[selectedIndex - 1].webformatURL;
+      this.setState({ selectedImageUrl: prevImageUrl });
     }
   };
 
@@ -75,9 +77,8 @@ class App extends Component {
       image => image.webformatURL === selectedImageUrl
     );
     if (selectedIndex < images.length - 1) {
-      this.setState({
-        selectedImageUrl: images[selectedIndex + 1].webformatURL,
-      });
+      const nextImageUrl = images[selectedIndex + 1].webformatURL;
+      this.setState({ selectedImageUrl: nextImageUrl });
     }
   };
 
@@ -88,7 +89,7 @@ class App extends Component {
       <div>
         <Searchbar onSubmit={this.handleSearchSubmit} />
         <ImageGallery images={images} onItemClick={this.handleItemClick} />
-        {isLoading && <Loader />}
+        {isLoading && <Loader isLoading={isLoading} />}
         {images.length > 0 && !isLoading && (
           <Button onClick={this.handleLoadMore} />
         )}
@@ -96,8 +97,9 @@ class App extends Component {
           <Modal
             imageUrl={selectedImageUrl}
             onClose={() => this.setState({ isModalOpen: false })}
-            onPrev={this.handlePrevImage} // Przekazanie funkcji onPrev
-            onNext={this.handleNextImage} // Przekazanie funkcji onNext
+            onPrev={this.handlePrevImage}
+            onNext={this.handleNextImage}
+            selectedImageIndex={this.state.selectedImageIndex}
           />
         )}
       </div>
