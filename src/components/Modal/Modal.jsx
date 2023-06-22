@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { BiX, BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 import styles from './Modal.module.css';
 
@@ -55,6 +56,13 @@ const Modal = ({ imageUrl, onClose, onPrev, onNext }) => {
       </div>
     </div>
   );
+};
+
+Modal.propTypes = {
+  imageUrl: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onPrev: PropTypes.func.isRequired,
+  onNext: PropTypes.func.isRequired,
 };
 
 export default Modal;

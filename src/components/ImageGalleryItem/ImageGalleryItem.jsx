@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './ImageGalleryItem.module.css';
 
-const ImageGalleryItem = ({ image, onItemClick }) => {
+const ImageGalleryItem = ({ image, onItemClick, selectedIndex }) => {
   const handleClick = () => {
-    onItemClick(image.largeImageURL, image.selectedIndex);
+    onItemClick(image.largeImageURL);
   };
 
   return (
@@ -16,6 +17,14 @@ const ImageGalleryItem = ({ image, onItemClick }) => {
       />
     </li>
   );
+};
+ImageGalleryItem.propTypes = {
+  image: PropTypes.shape({
+    webformatURL: PropTypes.string.isRequired,
+    largeImageURL: PropTypes.string.isRequired,
+    selectedIndex: PropTypes.number.isRequired,
+  }).isRequired,
+  onItemClick: PropTypes.func.isRequired,
 };
 
 export default ImageGalleryItem;
