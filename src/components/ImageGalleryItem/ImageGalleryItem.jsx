@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './ImageGalleryItem.module.css';
 
-const ImageGalleryItem = ({ image, onItemClick, selectedIndex }) => {
+const ImageGalleryItem = ({ image, onItemClick }) => {
   const handleClick = () => {
     onItemClick(image.largeImageURL);
   };
