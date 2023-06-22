@@ -12,9 +12,11 @@
 }
 
 .modal {
-  position: relative;
-  max-width: 90%;
-  max-height: 90%;
+  width: 90%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .modal img {
@@ -37,21 +39,21 @@
   background-color: antiquewhite;
   display: flex;
   position: absolute;
-  left: 1233px;
+  left: 1458px;
   cursor: pointer;
 }
 .nextButton {
   background-color: antiquewhite;
   display: flex;
   position: absolute;
-  left: 52%;
+  left: 51%;
   cursor: pointer;
 }
 .prevButton {
   background-color: antiquewhite;
   display: flex;
   position: absolute;
-  left: 48%;
+  left: 47%;
   cursor: pointer;
 }
 .closeButton:hover {
@@ -71,6 +73,6 @@
 }
 .image {
   width: 100%;
-  height: auto;
+  max-height: calc(100vh - 200px);
   object-fit: contain;
 }
